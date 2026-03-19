@@ -18,11 +18,17 @@
 
 ## 安装
 
+### 一键安装（推荐）
+
+```bash
+go install github.com/DreamCats/byte-logid/cmd/logid@latest
+```
+
 ### 从源码构建
 
 ```bash
-git clone <repo-url>
-cd logid
+git clone git@github.com:DreamCats/byte-logid.git
+cd byte-logid
 make build
 ```
 

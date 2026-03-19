@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/DreamCats/logid/internal/updater"
+	"github.com/DreamCats/byte-logid/internal/updater"
 	"github.com/spf13/cobra"
 )
 

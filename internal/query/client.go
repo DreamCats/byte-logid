@@ -9,8 +9,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/DreamCats/logid/internal/config"
-	"github.com/DreamCats/logid/internal/filter"
+	"github.com/DreamCats/byte-logid/internal/config"
+	"github.com/DreamCats/byte-logid/internal/filter"
 )
 
 const (

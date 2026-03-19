@@ -7,7 +7,7 @@ LDFLAGS := -X main.version=$(VERSION) -X main.gitCommit=$(GIT_COMMIT) -X main.bu
 .PHONY: build build-all test clean install
 
 build:
-	go build -ldflags "$(LDFLAGS)" -o $(APP_NAME) .
+	go build -ldflags "$(LDFLAGS)" -o $(APP_NAME) ./cmd/logid
 
 build-all:
 	GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/$(APP_NAME)_darwin_amd64 .

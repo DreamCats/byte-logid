@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DreamCats/logid/internal/auth"
-	"github.com/DreamCats/logid/internal/config"
-	"github.com/DreamCats/logid/internal/filter"
-	"github.com/DreamCats/logid/internal/query"
+	"github.com/DreamCats/byte-logid/internal/auth"
+	"github.com/DreamCats/byte-logid/internal/config"
+	"github.com/DreamCats/byte-logid/internal/filter"
+	"github.com/DreamCats/byte-logid/internal/query"
 	"github.com/spf13/cobra"
 )
 

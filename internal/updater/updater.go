@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	releaseURL = "https://api.github.com/repos/DreamCats/logid/releases/latest"
+	releaseURL = "https://api.github.com/repos/DreamCats/byte-logid/releases/latest"
 	httpTimeout = 30 * time.Second
 )
 

@@ -1,4 +1,4 @@
-module github.com/DreamCats/logid
+module github.com/DreamCats/byte-logid
 
 go 1.24.11
 

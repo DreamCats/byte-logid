@@ -1,6 +1,6 @@
 package main
 
-import "github.com/DreamCats/logid/cmd"
+import commands "github.com/DreamCats/byte-logid/cmd"
 
 // 通过 ldflags 注入
 var (
@@ -10,6 +10,6 @@ var (
 )
 
 func main() {
-	cmd.SetVersionInfo(version, gitCommit, buildDate)
-	cmd.Execute()
+	commands.SetVersionInfo(version, gitCommit, buildDate)
+	commands.Execute()
 }
