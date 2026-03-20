@@ -24,7 +24,7 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "显示版本信息",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("logid %s (commit: %s, built: %s, %s, %s/%s)\n",
+		fmt.Printf("byte-logid %s (commit: %s, built: %s, %s, %s/%s)\n",
 			version, gitCommit, buildDate, runtime.Version(), runtime.GOOS, runtime.GOARCH)
 	},
 }

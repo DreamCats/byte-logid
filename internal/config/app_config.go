@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 )
 
-// AppConfig 管理 ~/.config/logid/ 下的应用配置。
+// AppConfig 管理 ~/.config/byte-logid/ 下的应用配置。
 type AppConfig struct {
 	// ConfigDir 配置目录路径
 	ConfigDir string
@@ -20,7 +20,7 @@ func NewAppConfig() (*AppConfig, error) {
 		return nil, fmt.Errorf("获取用户主目录失败: %w", err)
 	}
 
-	configDir := filepath.Join(homeDir, ".config", "logid")
+	configDir := filepath.Join(homeDir, ".config", "byte-logid")
 	if err := os.MkdirAll(configDir, 0700); err != nil {
 		return nil, fmt.Errorf("创建配置目录 %s 失败: %w", configDir, err)
 	}

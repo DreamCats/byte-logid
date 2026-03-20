@@ -21,19 +21,19 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "logid [LOGID] [flags]",
+	Use:   "byte-logid [LOGID] [flags]",
 	Short: "字节跳动 logid 查询工具",
-	Long: `logid 是一个通过 Log ID（Trace ID）查询字节跳动内部日志服务的 CLI 工具。
+	Long: `byte-logid 是一个通过 Log ID（Trace ID）查询字节跳动内部日志服务的 CLI 工具。
 
 支持多区域查询、PSM 过滤、关键词筛选，输出 JSON 格式。
 认证通过 byte-auth 自动获取，也可通过 --token 手动传入。
 
 示例:
-  logid 550e8400-e29b-41d4-a716-446655440000 --region us
-  logid abc123 -r i18n -p my.service
-  logid abc123 -r us -k ForLive -k ErrorCode
-  logid abc123 -r us --token <jwt-token>
-  logid abc123 -r us --max-len 0          # 不截断，查看完整内容
+  byte-logid 550e8400-e29b-41d4-a716-446655440000 --region us
+  byte-logid abc123 -r i18n -p my.service
+  byte-logid abc123 -r us -k ForLive -k ErrorCode
+  byte-logid abc123 -r us --token <jwt-token>
+  byte-logid abc123 -r us --max-len 0          # 不截断，查看完整内容
 
 区域说明:
   us   - 美区

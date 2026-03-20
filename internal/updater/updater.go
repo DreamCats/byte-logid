@@ -1,4 +1,4 @@
-// Package updater 提供 logid 的自更新功能。
+// Package updater 提供 byte-logid 的自更新功能。
 // 从 GitHub Releases 下载最新版本并替换当前二进制。
 package updater
 
@@ -56,7 +56,7 @@ func Update(currentVersion string, checkOnly bool, force bool) error {
 
 	if checkOnly {
 		if currentClean < latestVersion {
-			fmt.Println("有新版本可用，运行 'logid update' 进行更新")
+			fmt.Println("有新版本可用，运行 'byte-logid update' 进行更新")
 		}
 		return nil
 	}
@@ -107,7 +107,7 @@ func Update(currentVersion string, checkOnly bool, force bool) error {
 	// 清理备份
 	_ = os.Remove(backupPath)
 
-	fmt.Println("更新完成！运行 'logid --version' 验证新版本")
+	fmt.Println("更新完成！运行 'byte-logid --version' 验证新版本")
 	return nil
 }
 
@@ -119,7 +119,7 @@ func getLatestRelease() (*githubRelease, error) {
 	if err != nil {
 		return nil, fmt.Errorf("创建请求失败: %w", err)
 	}
-	req.Header.Set("User-Agent", "logid-update")
+	req.Header.Set("User-Agent", "byte-logid-update")
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -144,7 +144,7 @@ func findPlatformAsset(release *githubRelease) (*githubAsset, error) {
 	platform := fmt.Sprintf("%s_%s", runtime.GOOS, runtime.GOARCH)
 
 	for _, asset := range release.Assets {
-		if strings.Contains(asset.Name, platform) && strings.Contains(asset.Name, "logid") {
+		if strings.Contains(asset.Name, platform) && strings.Contains(asset.Name, "byte-logid") {
 			return &asset, nil
 		}
 	}
@@ -164,7 +164,7 @@ func downloadAsset(asset *githubAsset) (string, error) {
 		return "", fmt.Errorf("下载失败 (HTTP %d)", resp.StatusCode)
 	}
 
-	tmpFile, err := os.CreateTemp("", "logid-update-*")
+	tmpFile, err := os.CreateTemp("", "byte-logid-update-*")
 	if err != nil {
 		return "", fmt.Errorf("创建临时文件失败: %w", err)
 	}

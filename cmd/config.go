@@ -11,13 +11,13 @@ import (
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "配置管理",
-	Long:  "管理 logid 的本地配置，包括消息净化过滤规则。",
+	Long:  "管理 byte-logid 的本地配置，包括消息净化过滤规则。",
 }
 
 var filterCmd = &cobra.Command{
 	Use:   "filter",
 	Short: "管理消息净化过滤规则",
-	Long:  "管理 ~/.config/logid/filters.json 中的消息净化过滤规则。",
+	Long:  "管理 ~/.config/byte-logid/filters.json 中的消息净化过滤规则。",
 }
 
 var filterListCmd = &cobra.Command{

@@ -1,4 +1,4 @@
-APP_NAME := logid
+APP_NAME := byte-logid
 VERSION := v2.0.0
 GIT_COMMIT := $(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")
 BUILD_DATE := $(shell date -u +%Y-%m-%d)
@@ -7,7 +7,7 @@ LDFLAGS := -X main.version=$(VERSION) -X main.gitCommit=$(GIT_COMMIT) -X main.bu
 .PHONY: build build-all test clean install
 
 build:
-	go build -ldflags "$(LDFLAGS)" -o $(APP_NAME) ./cmd/logid
+	go build -ldflags "$(LDFLAGS)" -o $(APP_NAME) .
 
 build-all:
 	GOOS=darwin GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/$(APP_NAME)_darwin_amd64 .

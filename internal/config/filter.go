@@ -7,7 +7,7 @@ import (
 )
 
 // FilterConfig 消息净化过滤配置。
-// 从 ~/.config/logid/filters.json 读取，配置文件为唯一规则来源。
+// 从 ~/.config/byte-logid/filters.json 读取，配置文件为唯一规则来源。
 type FilterConfig struct {
 	// MsgFilters 正则过滤规则列表
 	MsgFilters []string `json:"msg_filters"`

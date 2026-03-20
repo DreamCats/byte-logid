@@ -12,13 +12,13 @@ var (
 
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "更新 logid 到最新版本",
-	Long: `更新 logid 到最新版本。
+	Short: "更新 byte-logid 到最新版本",
+	Long: `更新 byte-logid 到最新版本。
 
 示例:
-  logid update           # 更新到最新版本
-  logid update --check   # 仅检查是否有新版本
-  logid update --force   # 强制更新`,
+  byte-logid update           # 更新到最新版本
+  byte-logid update --check   # 仅检查是否有新版本
+  byte-logid update --force   # 强制更新`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return updater.Update(version, updateCheck, updateForce)
 	},

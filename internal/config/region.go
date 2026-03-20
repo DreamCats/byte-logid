@@ -1,4 +1,4 @@
-// Package config 提供 logid 的配置管理功能。
+// Package config 提供 byte-logid 的配置管理功能。
 package config
 
 import "fmt"

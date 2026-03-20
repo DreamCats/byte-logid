@@ -1,6 +1,6 @@
 # Binary（仅根目录）
-/logid
-/logid.exe
+/byte-logid
+/byte-logid.exe
 dist/
 
 # IDE

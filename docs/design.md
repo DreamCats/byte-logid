@@ -1,4 +1,4 @@
-# logid v2.0 设计方案
+# byte-logid v2.0 设计方案
 
 > 版本: v2.0.0
 > 作者: maifeng@bytedance.com
@@ -21,7 +21,7 @@ src/
 │   ├── mod.rs                 # 模块导出
 │   ├── region.rs              # Region 枚举与区域配置
 │   ├── filter.rs              # FilterConfig：消息净化规则管理
-│   └── app_config.rs          # AppConfig：应用配置管理（~/.config/logid/）
+│   └── app_config.rs          # AppConfig：应用配置管理（~/.config/byte-logid/）
 │
 ├── log_query/                 # 日志查询模块
 │   ├── mod.rs                 # 模块导出
@@ -61,7 +61,7 @@ src/
 
 ```rust
 #[derive(Parser)]
-#[command(name = "logid")]
+#[command(name = "byte-logid")]
 #[command(about = "字节跳动 logid 查询工具")]
 #[command(version)]
 struct Cli {
@@ -90,7 +90,7 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// 更新 logid 到最新版本
+    /// 更新 byte-logid 到最新版本
     Update {
         #[arg(long)]
         check: bool,
@@ -147,7 +147,7 @@ fn main() {
                 run_query(logid, cli.region, cli.psm, cli.keyword, cli.token);
             } else {
                 // 无参数，打印帮助
-                Cli::parse_from(["logid", "--help"]);
+                Cli::parse_from(["byte-logid", "--help"]);
             }
         }
     }
@@ -212,15 +212,15 @@ AuthProvider::get_token(manual_token, region)
 
 ### 2.3 AppConfig（config/app_config.rs）
 
-管理 `~/.config/logid/` 目录下的配置文件：
+管理 `~/.config/byte-logid/` 目录下的配置文件：
 
 ```rust
 /// 应用配置管理器
 ///
-/// 负责管理 ~/.config/logid/ 下的配置文件，
+/// 负责管理 ~/.config/byte-logid/ 下的配置文件，
 /// 包括首次运行时的初始化和配置文件的读写。
 pub struct AppConfig {
-    /// 配置目录路径 (~/.config/logid/)
+    /// 配置目录路径 (~/.config/byte-logid/)
     config_dir: PathBuf,
 }
 
@@ -244,7 +244,7 @@ impl AppConfig {
 ```rust
 /// 消息净化过滤配置
 ///
-/// 从 ~/.config/logid/filters.json 读取过滤规则，
+/// 从 ~/.config/byte-logid/filters.json 读取过滤规则，
 /// 不再在代码中硬编码默认规则。
 pub struct FilterConfig {
     pub msg_filters: Vec<String>,
@@ -339,7 +339,7 @@ pub async fn config_filter_command(action: FilterAction) -> Result<()>;
 #### 输出示例
 
 ```bash
-$ logid config filter list
+$ byte-logid config filter list
 消息净化过滤规则 (7 条):
 
   [0] _compliance_nlp_log
@@ -350,15 +350,15 @@ $ logid config filter list
   [5] (?m)"Addr":\s*"[^"]*"
   [6] (?m)"Client":\s*"[^"]*"
 
-配置文件: ~/.config/logid/filters.json
+配置文件: ~/.config/byte-logid/filters.json
 
-$ logid config filter add 'sensitive_data'
+$ byte-logid config filter add 'sensitive_data'
 已添加过滤规则: sensitive_data
 
-$ logid config filter remove 0
+$ byte-logid config filter remove 0
 已删除过滤规则: _compliance_nlp_log
 
-$ logid config filter reset
+$ byte-logid config filter reset
 已重置为默认过滤规则 (7 条)
 ```
 
@@ -368,7 +368,7 @@ $ logid config filter reset
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ 输入: logid <LOGID> -r us -p svc.a -k ForLive          │
+│ 输入: byte-logid <LOGID> -r us -p svc.a -k ForLive      │
 └───────────────┬─────────────────────────────────────────┘
                 │
                 ▼
@@ -461,8 +461,8 @@ pub enum LogidError {
 
 ## 6. 安全设计
 
-- `~/.config/logid/` 目录权限：`0700`
-- `~/.config/logid/filters.json` 文件权限：`0600`
+- `~/.config/byte-logid/` 目录权限：`0700`
+- `~/.config/byte-logid/filters.json` 文件权限：`0600`
 - `--token` 参数值不在日志中打印全文，仅打印前 8 字符 + `***`
 - byte-auth 子进程调用不通过 shell（直接 `Command::new("byte-auth")`），避免注入风险
 

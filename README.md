@@ -1,4 +1,4 @@
-# logid
+# byte-logid
 
 内部日志查询 CLI 工具，通过 Log ID（Trace ID）查询分布式调用链路日志。
 
@@ -6,7 +6,7 @@
 
 ## 功能特性
 
-- **极简命令** - `logid <LOGID> -r us`，无需子命令
+- **极简命令** - `byte-logid <LOGID> -r us`，无需子命令
 - **多区域支持** - 美区 (us)、国际化 (i18n)、欧洲 (eu)、中国 (cn)
 - **认证委托** - 自动调用 byte-auth 获取 JWT，也支持 `--token` 手动传入
 - **消息净化** - 可配置的正则规则，自动剔除冗余日志内容
@@ -21,7 +21,7 @@
 ### 一键安装（推荐）
 
 ```bash
-go install github.com/DreamCats/byte-logid/cmd/logid@latest
+go install github.com/DreamCats/byte-logid@latest
 ```
 
 ### 从源码构建
@@ -54,13 +54,13 @@ byte-auth config set --region us --cookie "your_cas_session_value"
 byte-auth config show
 
 # 2. 查询日志
-logid <trace-id> --region us
+byte-logid <trace-id> --region us
 
 # 3. 带 PSM 过滤
-logid <trace-id> -r us -p my.service
+byte-logid <trace-id> -r us -p my.service
 
 # 4. 带关键词过滤
-logid <trace-id> -r us -p my.service -k error
+byte-logid <trace-id> -r us -p my.service -k error
 ```
 
 ## 命令参考
@@ -68,7 +68,7 @@ logid <trace-id> -r us -p my.service -k error
 ### 查询日志（默认行为）
 
 ```
-logid <LOGID> [OPTIONS]
+byte-logid <LOGID> [OPTIONS]
 
 Arguments:
   <LOGID>                   要查询的 Log ID（Trace ID）
@@ -87,75 +87,75 @@ Options:
 
 ```bash
 # 基础查询
-logid <trace-id> --region us
+byte-logid <trace-id> --region us
 
 # 按 PSM 过滤
-logid <trace-id> -r us -p my.service
+byte-logid <trace-id> -r us -p my.service
 
 # 多个 PSM 过滤
-logid <trace-id> -r i18n -p service.a -p service.b
+byte-logid <trace-id> -r i18n -p service.a -p service.b
 
 # 关键词过滤 - 只看包含指定关键词的日志
-logid <trace-id> -r us -k error
+byte-logid <trace-id> -r us -k error
 
 # 多关键词过滤（OR 关系）
-logid <trace-id> -r us -k error -k timeout
+byte-logid <trace-id> -r us -k error -k timeout
 
 # PSM + 关键词组合过滤
-logid <trace-id> -r us -p my.service -k error
+byte-logid <trace-id> -r us -p my.service -k error
 
 # 查看完整消息内容（不截断）
-logid <trace-id> -r us --max-len 0
+byte-logid <trace-id> -r us --max-len 0
 
 # 自定义截断长度
-logid <trace-id> -r us --max-len 2000
+byte-logid <trace-id> -r us --max-len 2000
 
 # 手动传入 token
-logid <trace-id> -r us --token "your-jwt-token"
+byte-logid <trace-id> -r us --token "your-jwt-token"
 
 # 配合 byte-auth 手动获取 token
-logid <trace-id> -r us --token $(byte-auth token -r us --raw)
+byte-logid <trace-id> -r us --token $(byte-auth token -r us --raw)
 
 # 配合 jq 提取特定字段
-logid <trace-id> -r us | jq '.messages[].values[].value'
+byte-logid <trace-id> -r us | jq '.messages[].values[].value'
 
 # 只看消息数量
-logid <trace-id> -r us | jq '.total_items'
+byte-logid <trace-id> -r us | jq '.total_items'
 ```
 
 ### 配置管理
 
 ```bash
 # 查看消息净化过滤规则
-logid config filter list
+byte-logid config filter list
 
 # 添加自定义过滤规则
-logid config filter add '<regex-pattern>'
+byte-logid config filter add '<regex-pattern>'
 
 # 删除过滤规则（按索引）
-logid config filter remove <index>
+byte-logid config filter remove <index>
 
 # 重置为默认规则
-logid config filter reset
+byte-logid config filter reset
 ```
 
 ### 自更新
 
 ```bash
 # 检查是否有新版本
-logid update --check
+byte-logid update --check
 
 # 更新到最新版本
-logid update
+byte-logid update
 
 # 强制更新
-logid update --force
+byte-logid update --force
 ```
 
 ### 版本信息
 
 ```bash
-logid version
+byte-logid version
 ```
 
 ## 输出格式
@@ -223,12 +223,12 @@ logid version
 
 ## 认证方式
 
-logid 使用 byte-auth 进行统一认证。
+byte-logid 使用 byte-auth 进行统一认证。
 
 ### 认证流程
 
 ```
-logid <LOGID> -r us
+byte-logid <LOGID> -r us
   │
   ├─ --token 参数存在？→ 直接使用
   │
@@ -257,7 +257,7 @@ logid <LOGID> -r us
 
 ## 过滤体系
 
-logid 提供三层过滤 + 消息截断机制：
+byte-logid 提供三层过滤 + 消息截断机制：
 
 ```
 服务端返回原始数据
@@ -279,15 +279,15 @@ logid 提供三层过滤 + 消息截断机制：
 
 ### 消息净化规则
 
-配置文件位于 `~/.config/logid/filters.json`，首次运行自动生成默认规则。
+配置文件位于 `~/.config/byte-logid/filters.json`，首次运行自动生成默认规则。
 
 通过命令管理：
 
 ```bash
-logid config filter list       # 查看规则
-logid config filter add '...'  # 添加规则
-logid config filter remove 0   # 删除规则
-logid config filter reset      # 重置为默认
+byte-logid config filter list       # 查看规则
+byte-logid config filter add '...'  # 添加规则
+byte-logid config filter remove 0   # 删除规则
+byte-logid config filter reset      # 重置为默认
 ```
 
 ### 关键词过滤
@@ -312,26 +312,26 @@ logid config filter reset      # 重置为默认
 # 批量查询多个 logid
 for id in "<id-1>" "<id-2>" "<id-3>"; do
   echo "=== Querying $id ==="
-  logid "$id" -r us -p my.service -k error 2>/dev/null
+  byte-logid "$id" -r us -p my.service -k error 2>/dev/null
 done
 ```
 
 ```bash
 # 提取所有错误消息
-logid <trace-id> -r us -k error | jq -r '.messages[] | "\(.level) \(.location): \(.values[0].value)"'
+byte-logid <trace-id> -r us -k error | jq -r '.messages[] | "\(.level) \(.location): \(.values[0].value)"'
 ```
 
 ## 文件结构
 
 ```
-~/.config/logid/
+~/.config/byte-logid/
 └── filters.json       # 消息净化规则配置
 ```
 
 ## 项目结构
 
 ```
-logid/
+byte-logid/
 ├── main.go                        # 程序入口
 ├── Makefile                       # 构建脚本
 ├── cmd/                           # CLI 命令定义（Cobra）
